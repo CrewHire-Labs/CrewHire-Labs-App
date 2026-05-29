@@ -1,8 +1,8 @@
-import { useEffect } from 'react'
 import { AuthProvider, useAuth } from './lib/AuthContext'
-import AuthPage          from './pages/AuthPage'
-import OnboardingWizard  from './pages/OnboardingWizard'
-import Dashboard         from './pages/Dashboard'
+import AuthPage         from './pages/AuthPage'
+import OnboardingWizard from './pages/OnboardingWizard'
+import Dashboard        from './pages/Dashboard'
+import BrandSettings    from './pages/BrandSettings'
 
 function Router() {
   const { user, brand, loading } = useAuth()
@@ -19,25 +19,26 @@ function Router() {
     )
   }
 
-  // Not logged in → always show auth
+  // Not logged in
   if (!user) return <AuthPage />
 
-  // Logged in but no brand or not onboarded → onboarding
+  // Brand settings page — must be logged in + have brand
+  if (path === '/settings' && brand) return <BrandSettings />
+
+  // No brand or not onboarded → onboarding
   if (!brand || !brand.onboarded) {
-    if (path === '/onboarding') return <OnboardingWizard />
-    // Redirect to onboarding
-    window.history.replaceState({}, '', '/onboarding')
+    if (path !== '/onboarding') window.history.replaceState({}, '', '/onboarding')
     return <OnboardingWizard />
   }
 
-  // Logged in + brand exists → dashboard
+  // Dashboard (default)
   return <Dashboard />
 }
 
 export default function App() {
   return (
     <AuthProvider>
-      <div className="grain" aria-hidden="true" />
+      <div className="grain" aria-hidden="true"/>
       <Router />
     </AuthProvider>
   )

@@ -231,9 +231,9 @@ export default function AuthPage() {
         )}
 
         <p className="text-center terminal-text text-[10px] opacity-20 mt-7 space-x-3">
-          <a href="/privacy" className="hover:opacity-60 transition-opacity">PRIVACY</a>
+          <a href="https://crewhirelabs.online/privacy" className="hover:opacity-60 transition-opacity">PRIVACY</a>
           <span>·</span>
-          <a href="/terms"   className="hover:opacity-60 transition-opacity">TERMS</a>
+          <a href="https://crewhirelabs.online/terms"   className="hover:opacity-60 transition-opacity">TERMS</a>
           <span>·</span>
           <a href="https://crewhirelabs.online" className="hover:opacity-60 transition-opacity">← HOME</a>
         </p>

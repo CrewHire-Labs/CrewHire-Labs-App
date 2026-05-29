@@ -232,3 +232,15 @@ insert into employees (brand_id, name, role, team, phase) values
   ('YOUR-BRAND-UUID', 'Anya',  'analytics',   'ops',       3),
   ('YOUR-BRAND-UUID', 'Finn',  'founder',     'ops',       1);
 */
+
+-- ============================================================
+-- SPRINT 2 UPDATE — Run this if you already ran the schema
+-- Adds extra brand detail columns for richer Brand Brain data
+-- ============================================================
+alter table brand_details
+  add column if not exists discount_info     text,
+  add column if not exists churn_reasons     text,
+  add column if not exists vip_traits        text,
+  add column if not exists sales_channels    text,
+  add column if not exists biggest_challenge text,
+  add column if not exists extra_context     text;

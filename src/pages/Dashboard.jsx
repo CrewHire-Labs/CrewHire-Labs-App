@@ -151,11 +151,13 @@ export default function Dashboard() {
       {/* Top bar */}
       <header className="border-b border-[#1A1D23] bg-[#080A0D] px-5 md:px-8 h-14 flex items-center justify-between sticky top-0 z-40">
         <div className="flex items-center gap-3">
-          <div className="w-6 h-6 flex items-center justify-center relative">
-            <div className="absolute inset-0 rounded-full border border-[#00E87A] opacity-40"/>
-            <div className="w-2 h-2 rounded-full bg-[#00E87A]"/>
-          </div>
-          <span className="font-display font-700 text-[14px] text-[#E8E6DF]">CrewHire</span>
+          <a href="https://crewhirelabs.online" className="flex items-center gap-2 group">
+            <div className="w-6 h-6 flex items-center justify-center relative">
+              <div className="absolute inset-0 rounded-full border border-[#00E87A] opacity-40 group-hover:opacity-80 transition-opacity"/>
+              <div className="w-2 h-2 rounded-full bg-[#00E87A]"/>
+            </div>
+            <span className="font-display font-700 text-[14px] text-[#E8E6DF] group-hover:text-[#00E87A] transition-colors">CrewHire</span>
+          </a>
           <span className="text-[#1A1D23]">·</span>
           <span className="terminal-text text-[11px] text-[#00E87A] opacity-70 truncate max-w-32">{brand.name}</span>
         </div>
@@ -167,6 +169,10 @@ export default function Dashboard() {
               <span className="terminal-text text-[10px] text-[#00E87A]">{trialDaysLeft}d free trial left</span>
             </div>
           )}
+          <a href="/settings" className="terminal-text text-[10px] opacity-30 hover:opacity-60 hover:text-[#00E87A] transition-all">
+            SETTINGS
+          </a>
+          <span className="text-[#1A1D23]">·</span>
           <button onClick={signOut} className="terminal-text text-[10px] opacity-30 hover:opacity-60 transition-opacity">
             SIGN OUT
           </button>
@@ -392,6 +398,20 @@ export default function Dashboard() {
           onHired={() => { setHiring(null); loadEmployees(); loadTasks(); }}
         />
       )}
+
+      {/* Footer */}
+      <footer className="border-t border-[#1A1D23] px-5 md:px-8 py-5 mt-8">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="terminal-text text-[10px] opacity-20">© {new Date().getFullYear()} CREWHIRE LABS · YOUR AI CREW. YOUR GROWTH.</p>
+          <div className="flex items-center gap-5 flex-wrap justify-center">
+            <a href="https://crewhirelabs.online" className="terminal-text text-[10px] opacity-25 hover:opacity-60 hover:text-[#00E87A] transition-all">HOME</a>
+            <a href="https://crewhirelabs.online/about" className="terminal-text text-[10px] opacity-25 hover:opacity-60 hover:text-[#00E87A] transition-all">ABOUT</a>
+            <a href="https://crewhirelabs.online/privacy" className="terminal-text text-[10px] opacity-25 hover:opacity-60 hover:text-[#00E87A] transition-all">PRIVACY</a>
+            <a href="https://crewhirelabs.online/terms" className="terminal-text text-[10px] opacity-25 hover:opacity-60 hover:text-[#00E87A] transition-all">TERMS</a>
+            <a href="mailto:hello@crewhirelabs.online" className="terminal-text text-[10px] opacity-25 hover:opacity-60 hover:text-[#00E87A] transition-all">CONTACT</a>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
