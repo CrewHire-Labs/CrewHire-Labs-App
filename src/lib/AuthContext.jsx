@@ -9,14 +9,12 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null)
       if (session?.user) loadBrand(session.user.id)
       else setLoading(false)
     })
 
-    // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null)
       if (session?.user) loadBrand(session.user.id)
@@ -41,13 +39,28 @@ export function AuthProvider({ children }) {
   async function signUp(email, password) {
     const { data, error } = await supabase.auth.signUp({
       email, password,
-      options: { emailRedirectTo: `${window.location.origin}/dashboard` },
+      options: { emailRedirectTo: `${window.location.origin}/` },
     })
     return { data, error }
   }
 
   async function signIn(email, password) {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+    return { data, error }
+  }
+
+  // Google OAuth — opens popup or redirect
+  async function signInWithGoogle() {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/`,
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'consent',
+        },
+      },
+    })
     return { data, error }
   }
 
@@ -65,7 +78,10 @@ export function AuthProvider({ children }) {
     : 0
 
   return (
-    <AuthCtx.Provider value={{ user, brand, loading, trialDaysLeft, signUp, signIn, signOut, refreshBrand }}>
+    <AuthCtx.Provider value={{
+      user, brand, loading, trialDaysLeft,
+      signUp, signIn, signInWithGoogle, signOut, refreshBrand
+    }}>
       {children}
     </AuthCtx.Provider>
   )
